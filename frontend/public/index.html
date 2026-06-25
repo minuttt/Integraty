@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integraty - AI Monitoring System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <h1>INTEGRATY</h1>
+                <p>AI Usage Monitoring</p>
+            </div>
+            <div class="status-indicator" id="statusIndicator">
+                <span class="status-dot"></span>
+                <span class="status-text">Disconnected</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <button class="nav-item active" data-page="dashboard">
+                        <span>Dashboard</span>
+                    </button>
+                    <button class="nav-item" data-page="new-session">
+                        <span>New Session</span>
+                    </button>
+                    <button class="nav-item" data-page="sessions">
+                        <span>Sessions</span>
+                    </button>
+                    <button class="nav-item" data-page="settings">
+                        <span>Settings</span>
+                    </button>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Page -->
+                <div id="dashboard-page" class="page active">
+                    <h2>Dashboard</h2>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Active Sessions</h3>
+                            <div class="stat-value" id="activeSessions">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Sessions</h3>
+                            <div class="stat-value" id="totalSessions">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Detections Today</h3>
+                            <div class="stat-value" id="detectionsToday">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Server Status</h3>
+                            <div class="stat-value" id="serverStatus">Checking...</div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div id="activityList" class="activity-list">
+                            <p class="empty-state">No recent activity</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Session Page -->
+                <div id="new-session-page" class="page">
+                    <h2>Create New Monitoring Session</h2>
+
+                    <form id="newSessionForm" class="session-form">
+                        <div class="form-group">
+                            <label for="sessionName">Session Name</label>
+                            <input type="text" id="sessionName" required placeholder="e.g., Final Exam - CS101">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="userId">User ID</label>
+                            <input type="text" id="userId" required placeholder="e.g., student-123">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sessionType">Session Type</label>
+                            <select id="sessionType">
+                                <option value="exam">Exam</option>
+                                <option value="interview">Interview</option>
+                                <option value="certification">Certification</option>
+                                <option value="training">Training</option>
+                                <option value="meeting">Meeting</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="screenshotInterval">Screenshot Interval (seconds)</label>
+                            <input type="number" id="screenshotInterval" value="30" min="5" max="300">
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enableOcr" checked>
+                                Enable OCR Text Extraction
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enableWindowMonitoring" checked>
+                                Enable Window Monitoring
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Create Session</button>
+                            <button type="button" class="btn btn-secondary" onclick="switchPage('dashboard')">Cancel</button>
+                        </div>
+                    </form>
+
+                    <div id="sessionCreated" class="success-message" style="display: none;">
+                        <h3>Session Created Successfully!</h3>
+                        <p>Session ID: <span id="createdSessionId"></span></p>
+                        <button class="btn btn-primary" id="startSessionBtn">Start Monitoring</button>
+                    </div>
+                </div>
+
+                <!-- Sessions List Page -->
+                <div id="sessions-page" class="page">
+                    <h2>All Sessions</h2>
+
+                    <div class="sessions-controls">
+                        <button class="btn btn-secondary" onclick="loadSessions()">Refresh</button>
+                    </div>
+
+                    <div id="sessionsList" class="sessions-list">
+                        <p class="empty-state">Loading sessions...</p>
+                    </div>
+                </div>
+
+                <!-- Settings Page -->
+                <div id="settings-page" class="page">
+                    <h2>Settings</h2>
+
+                    <div class="settings-section">
+                        <h3>API Configuration</h3>
+                        <div class="form-group">
+                            <label for="apiUrl">API Base URL</label>
+                            <input type="text" id="apiUrl" value="http://localhost:8080" placeholder="http://localhost:8080">
+                        </div>
+                        <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>About</h3>
+                        <p><strong>Version:</strong> 1.0.0</p>
+                        <p><strong>Backend:</strong> Python + FastAPI</p>
+                        <p><strong>Frontend:</strong> Electron</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../src/renderer.js"></script>
+</body>
+</html>
