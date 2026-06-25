@@ -4,6 +4,7 @@ from pathlib import Path
 
 from integraty.config import settings
 from integraty.core.session_manager import SessionManager
+from integraty.api.v1 import router as api_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -23,6 +24,9 @@ app.add_middleware(
 
 # Global session manager
 session_manager = SessionManager(data_dir=settings.DATA_DIR)
+
+# Store in app state for access in endpoints
+app.state.session_manager = session_manager
 
 
 @app.on_event("startup")
@@ -67,9 +71,7 @@ async def health_check():
     }
 
 
-# API routes
-from integraty.api.v1 import router as api_router
-
+# Include API routes
 app.include_router(api_router, prefix="/api/v1")
 
 

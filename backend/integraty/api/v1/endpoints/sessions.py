@@ -1,12 +1,16 @@
-from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
 from typing import List, Optional
 from pydantic import BaseModel
 from datetime import datetime
 
-from integraty.main import session_manager
 from integraty.core.session_manager import SessionStatus
 
 router = APIRouter()
+
+
+def get_session_manager(request: Request):
+    """Get session manager from app state"""
+    return request.app.state.session_manager
 
 
 # Request/Response Models
@@ -29,8 +33,10 @@ class SessionResponse(BaseModel):
 
 
 @router.post("/", response_model=SessionResponse)
-async def create_session(session_data: SessionCreate):
+async def create_session(request: Request, session_data: SessionCreate):
     """Create a new monitoring session"""
+    session_manager = get_session_manager(request)
+
     try:
         # Create session config
         config = {
@@ -61,8 +67,9 @@ async def create_session(session_data: SessionCreate):
 
 
 @router.post("/{session_id}/start")
-async def start_session(session_id: str, background_tasks: BackgroundTasks):
+async def start_session(request: Request, session_id: str, background_tasks: BackgroundTasks):
     """Start a monitoring session"""
+    session_manager = get_session_manager(request)
     session = session_manager.get_session(session_id)
 
     if not session:
@@ -82,8 +89,9 @@ async def start_session(session_id: str, background_tasks: BackgroundTasks):
 
 
 @router.post("/{session_id}/pause")
-async def pause_session(session_id: str):
+async def pause_session(request: Request, session_id: str):
     """Pause a monitoring session"""
+    session_manager = get_session_manager(request)
     session = session_manager.get_session(session_id)
 
     if not session:
@@ -103,8 +111,9 @@ async def pause_session(session_id: str):
 
 
 @router.post("/{session_id}/resume")
-async def resume_session(session_id: str):
+async def resume_session(request: Request, session_id: str):
     """Resume a paused session"""
+    session_manager = get_session_manager(request)
     session = session_manager.get_session(session_id)
 
     if not session:
@@ -124,8 +133,9 @@ async def resume_session(session_id: str):
 
 
 @router.post("/{session_id}/complete")
-async def complete_session(session_id: str):
+async def complete_session(request: Request, session_id: str):
     """Complete a monitoring session"""
+    session_manager = get_session_manager(request)
     session = session_manager.get_session(session_id)
 
     if not session:
@@ -146,8 +156,9 @@ async def complete_session(session_id: str):
 
 
 @router.get("/{session_id}", response_model=SessionResponse)
-async def get_session(session_id: str):
+async def get_session(request: Request, session_id: str):
     """Get session details"""
+    session_manager = get_session_manager(request)
     session = session_manager.get_session(session_id)
 
     if not session:
@@ -163,8 +174,9 @@ async def get_session(session_id: str):
 
 
 @router.get("/", response_model=List[SessionResponse])
-async def list_sessions(status: Optional[str] = None):
+async def list_sessions(request: Request, status: Optional[str] = None):
     """List all sessions"""
+    session_manager = get_session_manager(request)
     sessions = session_manager.sessions.values()
 
     if status:
@@ -183,8 +195,9 @@ async def list_sessions(status: Optional[str] = None):
 
 
 @router.delete("/{session_id}")
-async def delete_session(session_id: str):
+async def delete_session(request: Request, session_id: str):
     """Delete a session"""
+    session_manager = get_session_manager(request)
     session = session_manager.get_session(session_id)
 
     if not session:
