@@ -1,0 +1,205 @@
+{
+  "tools": [
+    {
+      "name": "ChatGPT",
+      "type": "chatbot",
+      "enabled": true,
+      "priority": 100,
+      "detection_methods": {
+        "domains": [
+          "chatgpt.com",
+          "chat.openai.com"
+        ],
+        "keywords": [
+          "ChatGPT",
+          "OpenAI",
+          "regenerate response",
+          "continue generating",
+          "stop generating"
+        ],
+        "processes": []
+      }
+    },
+    {
+      "name": "Claude",
+      "type": "chatbot",
+      "enabled": true,
+      "priority": 100,
+      "detection_methods": {
+        "domains": [
+          "claude.ai"
+        ],
+        "keywords": [
+          "Claude",
+          "Anthropic",
+          "Claude can make mistakes"
+        ],
+        "processes": []
+      }
+    },
+    {
+      "name": "Gemini",
+      "type": "chatbot",
+      "enabled": true,
+      "priority": 95,
+      "detection_methods": {
+        "domains": [
+          "gemini.google.com",
+          "bard.google.com"
+        ],
+        "keywords": [
+          "Gemini",
+          "Bard",
+          "Google AI"
+        ],
+        "processes": []
+      }
+    },
+    {
+      "name": "GitHub Copilot",
+      "type": "code_assistant",
+      "enabled": true,
+      "priority": 90,
+      "detection_methods": {
+        "domains": [],
+        "keywords": [
+          "Copilot suggestion",
+          "GitHub Copilot",
+          "Accept suggestion"
+        ],
+        "processes": [
+          "Copilot"
+        ]
+      }
+    },
+    {
+      "name": "Cursor",
+      "type": "code_assistant",
+      "enabled": true,
+      "priority": 85,
+      "detection_methods": {
+        "domains": [],
+        "keywords": [
+          "Cursor AI",
+          "Cmd+K"
+        ],
+        "processes": [
+          "Cursor.exe",
+          "cursor"
+        ]
+      }
+    },
+    {
+      "name": "Perplexity",
+      "type": "search_engine",
+      "enabled": true,
+      "priority": 75,
+      "detection_methods": {
+        "domains": [
+          "perplexity.ai"
+        ],
+        "keywords": [
+          "Perplexity",
+          "Sources:"
+        ],
+        "processes": []
+      }
+    },
+    {
+      "name": "Microsoft Copilot",
+      "type": "chatbot",
+      "enabled": true,
+      "priority": 80,
+      "detection_methods": {
+        "domains": [
+          "copilot.microsoft.com",
+          "bing.com/chat"
+        ],
+        "keywords": [
+          "Microsoft Copilot",
+          "Bing Chat"
+        ],
+        "processes": []
+      }
+    },
+    {
+      "name": "Midjourney",
+      "type": "image_generator",
+      "enabled": true,
+      "priority": 70,
+      "detection_methods": {
+        "domains": [
+          "midjourney.com",
+          "discord.com"
+        ],
+        "keywords": [
+          "Midjourney",
+          "/imagine"
+        ],
+        "processes": []
+      }
+    },
+    {
+      "name": "DALL-E",
+      "type": "image_generator",
+      "enabled": true,
+      "priority": 70,
+      "detection_methods": {
+        "domains": [
+          "labs.openai.com"
+        ],
+        "keywords": [
+          "DALL·E",
+          "DALL-E"
+        ],
+        "processes": []
+      }
+    },
+    {
+      "name": "Character.AI",
+      "type": "chatbot",
+      "enabled": true,
+      "priority": 60,
+      "detection_methods": {
+        "domains": [
+          "character.ai",
+          "beta.character.ai"
+        ],
+        "keywords": [
+          "Character.AI"
+        ],
+        "processes": []
+      }
+    },
+    {
+      "name": "Poe",
+      "type": "chatbot",
+      "enabled": true,
+      "priority": 60,
+      "detection_methods": {
+        "domains": [
+          "poe.com"
+        ],
+        "keywords": [
+          "Poe"
+        ],
+        "processes": []
+      }
+    },
+    {
+      "name": "Grok",
+      "type": "chatbot",
+      "enabled": true,
+      "priority": 65,
+      "detection_methods": {
+        "domains": [
+          "x.com/i/grok"
+        ],
+        "keywords": [
+          "Grok"
+        ],
+        "processes": []
+      }
+    }
+  ]
+}
