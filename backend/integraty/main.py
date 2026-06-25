@@ -5,6 +5,7 @@ from pathlib import Path
 from integraty.config import settings
 from integraty.core.session_manager import SessionManager
 from integraty.api.v1 import router as api_router
+from integraty.models import create_tables
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -35,6 +36,11 @@ async def startup_event():
     print(f"Starting {settings.APP_NAME} v{settings.APP_VERSION}")
     print(f"Data directory: {settings.DATA_DIR}")
     print(f"Environment: {settings.APP_ENV}")
+
+    # Create database tables
+    print("Creating database tables...")
+    create_tables()
+    print("Database tables created successfully")
 
 
 @app.on_event("shutdown")
