@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 
 from integraty.config import settings
-from integraty.core.session_manager import SessionManager
 from integraty.api.v1 import router as api_router
 from integraty.models import create_tables
 
@@ -27,11 +26,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Global session manager
-session_manager = SessionManager(data_dir=settings.DATA_DIR)
-
-# Store in app state for access in endpoints
-app.state.session_manager = session_manager
+# Store empty session manager in app state for API compatibility
+# Note: Actual monitoring happens in student desktop app, not server
+app.state.session_manager = None
 
 
 @app.on_event("startup")
@@ -51,7 +48,6 @@ async def startup_event():
 async def shutdown_event():
     """Run on application shutdown"""
     print("Shutting down...")
-    await session_manager.stop_all_sessions()
 
 
 @app.get("/")
@@ -67,17 +63,10 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Detailed health check"""
-    active_sessions = len(session_manager.get_active_sessions())
-
     return {
         "status": "healthy",
-        "active_sessions": active_sessions,
-        "features": {
-            "screen_capture": True,
-            "window_monitoring": True,
-            "ocr": settings.OCR_ENABLED,
-            "browser_monitoring": settings.ENABLE_BROWSER_MONITORING,
-        },
+        "message": "API server is running",
+        "version": settings.APP_VERSION,
     }
 
 
