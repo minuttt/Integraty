@@ -1,34 +1,35 @@
-# Core Framework (Python 3.7 compatible)
-fastapi==0.68.0
-uvicorn==0.15.0
-python-multipart==0.0.5
+# Core Framework
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+python-multipart==0.0.12
 
 # Database
-sqlalchemy==1.4.41
-psycopg2-binary==2.9.3
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
 
 # Authentication & Security
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
-cryptography==38.0.4
-email-validator==2.0.0
+cryptography==44.0.0
+email-validator==2.2.0
+pydantic[email]==2.10.3
 
 # Monitoring & Screen Capture
-mss==6.1.0
-Pillow==8.4.0
-opencv-python==4.5.5.64
-pytesseract==0.3.10
-psutil==5.9.0
+mss==9.0.2
+Pillow==11.0.0
+opencv-python==4.10.0.84
+pytesseract==0.3.13
+psutil==6.1.0
 
 # Windows-specific (for window monitoring)
-pywin32==304; sys_platform == 'win32'
+pywin32==308; sys_platform == 'win32'
 
 # Utilities
-python-dotenv==0.19.2
-aiofiles==0.8.0
-httpx==0.23.0
+python-dotenv==1.0.1
+aiofiles==24.1.0
+httpx==0.28.1
 
 # Development
-pytest==7.1.3
-pytest-asyncio==0.19.0
-black==22.10.0
+pytest==8.3.4
+pytest-asyncio==0.24.0
+black==24.10.0
